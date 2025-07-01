@@ -20,7 +20,7 @@ public class PedidosService {
         HttpRequest request = HttpRequest.newBuilder()
                 .GET()
                 .timeout(Duration.ofSeconds(5))
-                .uri(URI.create("http://localhost:8180/produtos"))
+                .uri(URI.create("http://localhost:8180"))
                 .build();
         HttpResponse<String> response = null;
         try {

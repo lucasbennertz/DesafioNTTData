@@ -4,14 +4,12 @@ import com.lucas.ms1.Model.Products;
 import com.lucas.ms1.Service.ProductService;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController(value = "/produtos")
+@RestController
+@RequestMapping("/produtos")
 public class ProductController {
 
     @Autowired

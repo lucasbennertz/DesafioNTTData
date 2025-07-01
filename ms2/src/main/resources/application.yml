@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: ms2
+server:
+  port: 8282
