@@ -4,6 +4,7 @@ import com.lucas.ms1.Model.Products;
 import com.lucas.ms1.Service.ProductService;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,8 +25,10 @@ public class ProductController {
         return productService.getProductById(id);
     }
     @PostMapping("/create")
-    public Products createProduct(Products product) {
-        return productService.createProduct(product);
+    public ResponseEntity<Products> createProduct(@RequestBody Products product) {
+        System.out.println("Creating product: " + product);
+        productService.createProduct(product);
+        return ResponseEntity.ok(product);
     }
     @PostMapping("/update/{id}")
     public Products updateProduct(Long id, Products product) {
