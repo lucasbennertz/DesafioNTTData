@@ -13,8 +13,11 @@ import java.net.http.HttpResponse;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class PedidosService {
@@ -49,24 +52,24 @@ public class PedidosService {
     }
 
     public List<String> createOrder(List<Products> order) {
-        List<Products> products = order;
-        List<Products> productsOnOrder = new ArrayList<>();
-        List<Products> productsAlreadyExixsting = getAvaliableProducts().orElse(null);
+    List<Products> products = order;
+    List<Products> productsOnOrder = new ArrayList<>();
+    List<Products> productsAlreadyExixsting = getAvaliableProducts().orElse(Collections.emptyList());
 
-        products.forEach(product -> {
-            if (productsAlreadyExixsting != null && !productsAlreadyExixsting.contains(product)) {
-                System.out.println("Produto " + product + " não está disponível.");
-                createProduct(product);
-                productsOnOrder.add(product);
-            } else {
-                System.out.println("Pedido criado para o produto: " + product);
-                productsOnOrder.add(product);
-            }
-        });
-        return productsOnOrder.stream()
-                .map(Products::getName)
-                .toList();  
+    for (Products product : products) {
+        if (!productsAlreadyExixsting.contains(product)) {
+            createProduct(product);
+            productsOnOrder.add(product);
+        } else {
+            System.out.println("Produto já existe: " + product.getName());
+        }
     }
+
+    return productsOnOrder.stream()
+            .map(Products::getName)
+            .toList();  
+}
+
     private void createProduct(Products product) {
     try {
         String body = mapper.writeValueAsString(product);

@@ -2,7 +2,6 @@ package com.lucas.ms1.Controller;
 
 import com.lucas.ms1.Model.Products;
 import com.lucas.ms1.Service.ProductService;
-import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,7 +25,7 @@ public class ProductController {
     }
     @PostMapping("/create")
     public ResponseEntity<Products> createProduct(@RequestBody Products product) {
-        System.out.println("Creating product: " + product);
+        System.out.println("Creating product: " + product.getName());
         productService.createProduct(product);
         return ResponseEntity.ok(product);
     }
